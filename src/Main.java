@@ -1,6 +1,6 @@
 import model.LogEntry;
 import parser.LogParser;
-import service.StatsService;
+import src.StatsService;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
