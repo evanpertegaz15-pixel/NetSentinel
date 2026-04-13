@@ -1,2 +1,2 @@
-public class DDoS extends Detecteur {
+public class DDoS extends src.Detecteur {
 }

@@ -1,6 +1,4 @@
-package src;
-
-import model.LogEntry;
+import src.LogEntry;
 import java.util.*;
 import java.util.stream.Collectors;
 

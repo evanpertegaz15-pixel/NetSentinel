@@ -1,3 +1,5 @@
+import src.LogEntry;
+
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;

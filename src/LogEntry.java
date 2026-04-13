@@ -1,3 +1,5 @@
+package src;
+
 public class LogEntry {
     public final String ip;
     public final String ident;

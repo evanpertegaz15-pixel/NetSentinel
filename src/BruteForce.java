@@ -1,2 +1,2 @@
-public class BruteForce extends Detecteur {
+public class BruteForce extends src.Detecteur {
 }
