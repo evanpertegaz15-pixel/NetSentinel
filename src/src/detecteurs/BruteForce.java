@@ -1,4 +1,4 @@
 package src.detecteurs;
 
-public class BruteForce extends Detecteur {
-}
+/*public class BruteForce extends Detector {
+}*/

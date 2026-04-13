@@ -1,4 +1,4 @@
 package src.detecteurs;
 
-public class Scan extends Detecteur {
-}
+/*public class Scan extends Detector {
+}*/

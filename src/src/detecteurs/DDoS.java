@@ -1,4 +1,4 @@
 package src.detecteurs;
 
-public class DDoS extends Detecteur {
-}
+/*public class DDoS extends Detector {
+}*/
