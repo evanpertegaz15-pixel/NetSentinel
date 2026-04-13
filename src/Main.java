@@ -1,5 +1,7 @@
 import src.LogEntry;
 import src.LogParser;
+import src.StatsService;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
