@@ -27,8 +27,8 @@ public class Main {
         return entries;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         List<LogEntry> logs = parseLogFile("accesslogclean.txt");
         StatsService.displayDashboard(logs);
-    }
+    }*/
 }

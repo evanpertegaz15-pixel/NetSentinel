@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class StatsService {
-    public static void displayDashboard(List<LogEntry> entries) {
+    /*public static void displayDashboard(List<LogEntry> entries) {
         System.out.println("=== DASHBOARD NETSENTINEL ===");
 
         System.out.println("1. Nombre total de requêtes parsées : " + entries.size());
@@ -40,5 +40,5 @@ public class StatsService {
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(5)
                 .forEach(e -> System.out.printf("   %-20s : %d\n", e.getKey(), e.getValue()));
-    }
+    }*/
 }

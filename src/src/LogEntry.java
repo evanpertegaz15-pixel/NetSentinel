@@ -1,5 +1,7 @@
 package src;
 
+import java.time.LocalDateTime;
+
 public class LogEntry {
     public final String ip;
     public final String ident;
@@ -7,23 +9,43 @@ public class LogEntry {
     public final String datetime;
     public final String method;
     public final String path;
-    public final String protocol;
     public final int status;
-    public final long size;
-    public final String referrer;
-    public final String agent;
 
-    public LogEntry(String ip, String indent, String user, String datetime, String method, String path, String protocol, int status, long size, String referrer, String agent) {
+    public LogEntry(String ip, LocalDateTime timestamp, String method, String url, int statusCode, String userAgent) {
         this.ip = ip;
-        this.ident = indent;
-        this.user = user;
-        this.datetime = datetime;
+        this.ident = timestamp.toString();
+        this.user = userAgent;
+        this.datetime = timestamp.toString();
         this.method = method;
-        this.path = path;
-        this.protocol = protocol;
-        this.status = status;
-        this.size = size;
-        this.referrer = referrer;
-        this.agent = agent;
+        this.path = url;
+        this.status = statusCode;
+    }
+
+    public String getIp() {
+        return this.ip;
+    }
+
+    public String getIdent() {
+        return this.ident;
+    }
+
+    public String getUser() {
+        return this.user;
+    }
+
+    public String getDatetime() {
+        return this.datetime;
+    }
+
+    public String getMethod() {
+        return this.method;
+    }
+
+    public String getPath() {
+        return this.path;
+    }
+
+    public int getStatus() {
+        return this.status;
     }
 }
