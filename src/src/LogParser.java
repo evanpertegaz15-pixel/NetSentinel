@@ -16,6 +16,10 @@ public class LogParser {
     private static final DateTimeFormatter DATE_TIME_FORMATTER =
             DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss Z", Locale.ENGLISH);
 
+    public static DateTimeFormatter getDateTimeFormatter() {
+        return DATE_TIME_FORMATTER;
+    }
+
     public static LogEntry parse(String line) {
         Matcher matcher = LOG_PATTERN.matcher(line.trim());
         if (!matcher.matches()) {

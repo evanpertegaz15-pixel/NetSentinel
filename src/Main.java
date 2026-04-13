@@ -14,8 +14,8 @@ public class Main {
 
     static List<Detector> detectors = List.of(
             //new BruteForce(),
-            new InjectionSQL()//,
-            //new DDoS(),
+            new InjectionSQL(),
+            new DDoS()//,
             //new Scan()
     );
 
