@@ -1,4 +1,4 @@
-package src;
+package src.detecteurs;
 
 public class Scan extends Detecteur {
 }
