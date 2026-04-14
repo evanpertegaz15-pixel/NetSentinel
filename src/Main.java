@@ -2,11 +2,13 @@ import src.LogEntry;
 import src.LogParser;
 import src.StatsService;
 import src.detectors.*;
+import src.reports.Report;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,10 +66,25 @@ public class Main {
         }
     }
 
+    public static void reportGeneration() {
+        List<DetectionAlert> allAlerts = new ArrayList<>();
+        for (Detector detector : detectors) {
+            allAlerts.addAll(detector.detect(parseLogFile(attackLogs)));
+        }
+        CorrelationAlert alert = new CorrelationAlert();
+        Map<String, CorrelationAlert.Severity> severites = alert.correlate(allAlerts);
+        try {
+            Report.generateReport(allAlerts, severites, "rapport_securite.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     static void main(String[] args) {
         List<LogEntry> logs = parseLogFile(cleanLogs);
         StatsService.displayDashboard(logs);
         detectorsLaunch();
         scoringDetectors();
+        reportGeneration();
     }
 }

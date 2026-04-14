@@ -43,7 +43,7 @@ public class BruteForce extends Detector {
                     String message = (count >= SEUIL_HIGH)
                             ? "Brute-force massif : " + count + " échecs en 5 minutes"
                             : "Brute-force suspect : " + count + " échecs en 5 minutes";
-                    alerts.add(new DetectionAlert(ip, message, getName()));
+                    alerts.add(new DetectionAlert(ip, message, getName(), debut));
                     break;
                 }
             }

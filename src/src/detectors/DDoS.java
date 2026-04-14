@@ -57,13 +57,13 @@ public class DDoS extends Detector {
                 int window = right - left + 1;
                 double windowRate = window / 10.0;
                 if (windowRate > totalAverage * 10) {
-                    detectionAlerts.add(new DetectionAlert(ip, "Débit anormal : " + windowRate + " req/s (moyenne globale = " + totalAverage + ")", getName()));
+                    detectionAlerts.add(new DetectionAlert(ip, "Débit anormal : " + windowRate + " req/s (moyenne globale = " + totalAverage + ")", getName(), times.get(right)));
                     break;
                 }
             }
         }
         if (entries.size() / totalSeconds > totalAverage * 50) {
-            detectionAlerts.add(new DetectionAlert("GLOBAL", "CRITICAL : Volume global > 50x la moyenne (" + totalAverage + " req/s)",  getName()));
+            detectionAlerts.add(new DetectionAlert("GLOBAL", "CRITICAL : Volume global > 50x la moyenne (" + totalAverage + " req/s)",  getName(), last));
         }
         return detectionAlerts;
     }
