@@ -1,12 +1,32 @@
 # NetSentinel
 
 ## Installation & Lancement
+Le projet ayant été réalisé sous IntelliJ IDEA, certaines fonctionnalités, comme les fichiers de test, peuvent ne pas fonctionner sous un autre éditeur tel que VSCode. 
 
 ### Installation
+- Cloner le dépôt
+  - Dans un terminal, utiliser `git clone <lien_repo>` depuis le dossier où l'on souhaite l'enregistrer.
 
+- IntelliJ :
+  - Cliquer sur `Clone Repository`
+  - Entrer l'URL du dépôt
+  - Choisir l'emplacement pour le sauvegarder
+  - Cliquer sur `Clone`
+  - Le projet doit s'ouvrir *(sinon le sélectionner dans l'écran d'accueil)*
+
+- VSCode :
+  - Ouvrir le dossier dans lequel a été cloné le dépôt
 
 ### Lancement
+- IntelliJ :
+  - Dérouler l'arborescence de fichiers si ce n'est pas déjà fait
+  - Faire un clic droit sur le fichier `Main(.java)`
+  - Cliquer sur l'option **"Run 'Main.main()'"**
+  - Il est à noter que le chemin vers le fichier doit comporter `src/nomdufichier` car il est relatif par rapport au dossier racine
 
+- VSCode :
+  - Ouvrir un terminal et se déplacer dans le répertoire contenant le fichier `Main.java`
+  - Exécuter, dans le terminal, la commande suivante : `java .\Main.java`
 
 ## Rapport d'analyse sécurité
 
