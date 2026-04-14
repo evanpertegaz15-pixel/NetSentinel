@@ -6,12 +6,13 @@ import src.detectors.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     static String cleanLogs = "src/access_log_clean.txt";
     static String attackLogs = "src/access_log_attack.txt";
-
     static List<Detector> detectors = List.of(
             //new BruteForce(),
             new InjectionSQL(),
@@ -50,9 +51,23 @@ public class Main {
         }
     }
 
+    public static void scoringDetectors() {
+        List<DetectionAlert> allAlerts = new ArrayList<>();
+        for (Detector detector : detectors) {
+            allAlerts.addAll(detector.detect(parseLogFile(attackLogs)));
+        }
+        CorrelationAlert alert = new CorrelationAlert();
+        Map<String, CorrelationAlert.Severity> scores = alert.correlate(allAlerts);
+        System.out.println("--- SCORING DES ALERTES ---");
+        for (var entry : scores.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
+    }
+
     static void main(String[] args) {
         List<LogEntry> logs = parseLogFile(cleanLogs);
         StatsService.displayDashboard(logs);
         detectorsLaunch();
+        scoringDetectors();
     }
 }

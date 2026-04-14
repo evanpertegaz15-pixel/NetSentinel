@@ -25,7 +25,7 @@ public class InjectionSQL extends Detector {
             String url = entry.getPath().toUpperCase();
             for (String pattern : PATTERNS) {
                 if (url.contains(pattern.toUpperCase())) {
-                    detectionAlerts.add(new DetectionAlert(entry.getIp(), "Pattern SQL suspect détecté : " + pattern));
+                    detectionAlerts.add(new DetectionAlert(entry.getIp(), "Pattern SQL suspect détecté : " + pattern, getName()));
                 }
             }
         }
