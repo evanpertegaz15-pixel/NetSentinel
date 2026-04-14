@@ -14,7 +14,7 @@ public class Main {
     static String cleanLogs = "src/access_log_clean.txt";
     static String attackLogs = "src/access_log_attack.txt";
     static List<Detector> detectors = List.of(
-            //new BruteForce(),
+            new BruteForce(),
             new InjectionSQL(),
             new DDoS(),
             new Scan()
