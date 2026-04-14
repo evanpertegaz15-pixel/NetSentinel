@@ -14,9 +14,5 @@ public abstract class Detector {
         return this.name;
     }
 
-    protected boolean isErrorCode(int code) {
-        return code == 401 || code == 403 || code == 404;
-    }
-
     public abstract List<DetectionAlert> detect(List<LogEntry> entries);
 }

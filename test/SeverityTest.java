@@ -1,11 +1,9 @@
 import org.junit.jupiter.api.Test;
 import src.detectors.CorrelationAlert;
 import src.detectors.DetectionAlert;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SeverityTest {

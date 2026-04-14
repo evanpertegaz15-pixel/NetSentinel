@@ -3,7 +3,6 @@ package src.detectors;
 
 import src.LogEntry;
 import src.reports.Whitelist;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;

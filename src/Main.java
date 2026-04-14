@@ -4,7 +4,6 @@ import src.StatsService;
 import src.detectors.*;
 import src.reports.Report;
 import src.reports.Whitelist;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

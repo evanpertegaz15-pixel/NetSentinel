@@ -2,7 +2,6 @@ package src.reports;
 
 import src.detectors.CorrelationAlert;
 import src.detectors.DetectionAlert;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Comparator;
