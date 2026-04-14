@@ -72,6 +72,17 @@ public class Report {
                         * Limiter le nombre de connexions simultanées par IP
                         * Surveiller les pics de trafic anormaux
                     """);
+            writer.write("\n\n");
+            writer.write("Règles de blocage\n");
+            writer.write("-----------------\n");
+            List<String> rules = BlockingRules.generate(severities);
+            if (rules.isEmpty()) {
+                writer.write("Aucune IP à bloquer.\n");
+            } else {
+                for (String rule : rules) {
+                    writer.write(" - " + rule + "\n");
+                }
+            }
         }
     }
 }
