@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.Test;
 import src.LogEntry;
-import src.detecteurs.DetectionAlert;
-import src.detecteurs.InjectionSQL;
+import src.detectors.DetectionAlert;
+import src.detectors.InjectionSQL;
 import java.time.LocalDateTime;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;

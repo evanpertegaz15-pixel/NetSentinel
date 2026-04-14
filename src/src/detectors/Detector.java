@@ -1,4 +1,4 @@
-package src.detecteurs;
+package src.detectors;
 
 import src.LogEntry;
 import java.util.List;

@@ -1,7 +1,7 @@
 import src.LogEntry;
 import src.LogParser;
 import src.StatsService;
-import src.detecteurs.*;
+import src.detectors.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

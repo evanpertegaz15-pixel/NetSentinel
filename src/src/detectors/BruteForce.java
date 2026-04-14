@@ -1,6 +1,6 @@
-package src.src.detectors;
+package src.detectors;
 
-import src.src.LogEntry;
+import src.LogEntry;
 import src.src.model.Alert;
 import src.src.model.Alert.Severity;
 import java.time.Duration;
@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
-public class BruteForce implements ThreatDetector {
+/*public class BruteForce extends Detector {
     private static final int SEUIL_MEDIUM = 10;
     private static final int SEUIL_HIGH = 50;
     private static final Duration FENETRE = Duration.ofMinutes(5);
@@ -61,4 +61,4 @@ public class BruteForce implements ThreatDetector {
                 .sorted(Comparator.comparing(Alert::getTimestamp).reversed())
                 .collect(Collectors.toList());
     }
-}
+}*/

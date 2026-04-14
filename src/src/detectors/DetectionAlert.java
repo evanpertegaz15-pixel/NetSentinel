@@ -1,4 +1,4 @@
-package src.detecteurs;
+package src.detectors;
 
 public class DetectionAlert {
     private final String ip;

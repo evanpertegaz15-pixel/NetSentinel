@@ -1,67 +1,61 @@
-package src.src.detectors;
+package src.detectors;
 
-import src.src.model.Alert;
-import src.src.model.Alert.Severity;
-import src.src.services.LogEntry;  // ← AJOUTÉ
-import java.time.LocalDateTime;
+import src.LogEntry;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.Comparator;
 
-public class Scan implements ThreatDetector {
-    private static final Set<String> CHEMINS_SUSPECTS = Set.of(
-            "/admin", "/wp-login.php", "/.env", "/phpmyadmin", "/config.yml",
-            "/.git/config", "/backup.sql", "/wp-admin", "/administrator", "/test"
+public class Scan extends Detector {
+    private static final Set<String> SUSPICIOUS_PATHS = Set.of(
+            "/admin",
+            "/wp-login.php",
+            "/.env",
+            "/phpmyadmin",
+            "/config.yml",
+            "/.git/config",
+            "/backup.sql"
     );
-    private static final Set<String> USER_AGENTS_SUSPECTS = Set.of(
-            "sqlmap", "nikto", "nmap", "dirbuster", "gobuster", "wfuzz"
-    );
-    private static final int SEUIL_404 = 20;
+    private static final String[] SCAN_AGENTS = {"sqlmap", "nikto", "nmap", "dirbuster", "gobuster"};
+
+    public Scan() {
+        super("Scan");
+    }
 
     @Override
-    public List<Alert> analyze(List<LogEntry> logs) {
-        Map<String, Set<String>> urls404ParIp = new HashMap<>();
-        Map<String, Integer> count404ParIp = new HashMap<>();
-        List<Alert> alerts = new ArrayList<>();  // ← DÉCLARÉ ICI
-
-        for (LogEntry log : logs) {
-            String ip = log.getIp();
-            String request = log.getRequest();
-            String userAgent = log.getUserAgent();
-            int status = log.getStatus();
-
-            // Compte 404 par IP
-            if (status == 404) {
-                count404ParIp.merge(ip, 1, Integer::sum);
-
-                // URLs uniques 404
-                if (request != null) {
-                    urls404ParIp.computeIfAbsent(ip, k -> new HashSet<>()).add(request);
+    public List<DetectionAlert> detect(List<LogEntry> entries) {
+        List<DetectionAlert> alerts = new ArrayList<>();
+        for (LogEntry entry : entries) {
+            String path = entry.getPath().toLowerCase();
+            if (SUSPICIOUS_PATHS.contains(path)) {
+                alerts.add(new DetectionAlert(entry.getIp(), "Accès à un chemin sensible : " + path));
+            }
+        }
+        Set<String> flaggedUserAgent = new HashSet<>();
+        for (LogEntry entry : entries) {
+            String agent = entry.getUser().toLowerCase();
+            String ip = entry.getIp();
+            if (flaggedUserAgent.contains(ip)) {
+                continue;
+            }
+            for (String scanner : SCAN_AGENTS) {
+                if (agent.contains(scanner)) {
+                    alerts.add(new DetectionAlert(entry.getIp(), "User-agent d’outil de scan détecté : " + scanner));
+                    flaggedUserAgent.add(ip);
+                    break;
                 }
             }
-
-            // User-agent suspect OU chemin suspect → ALERTE IMMÉDIATE
-            if ((request != null && CHEMINS_SUSPECTS.stream().anyMatch(request::contains)) ||
-                    (userAgent != null && USER_AGENTS_SUSPECTS.stream().anyMatch(userAgent.toLowerCase()::contains))) {
-
-                alerts.add(new Alert(ip, log.getTimestamp(), "Scan", Severity.MEDIUM, 1));
+        }
+        Map<String, Set<String>> url404 = new HashMap<>();
+        for (LogEntry entry : entries) {
+            if (entry.getStatus() == 404) {
+                url404.computeIfAbsent(entry.getIp(), k -> new HashSet<>()).add(entry.getPath());
             }
         }
-
-        // >20 URLs 404 différentes = scan répertoires (HIGH)
-        for (Map.Entry<String, Set<String>> entry : urls404ParIp.entrySet()) {
+        for (var entry : url404.entrySet()) {
             String ip = entry.getKey();
-            if (entry.getValue().size() > SEUIL_404) {
-                LocalDateTime ts = logs.stream()
-                        .filter(l -> l.getIp().equals(ip) && l.getStatus() == 404)
-                        .findFirst().map(LogEntry::getTimestamp).orElse(LocalDateTime.now());
-
-                alerts.add(new Alert(ip, ts, "Scan", Severity.HIGH, entry.getValue().size()));
+            int count = entry.getValue().size();
+            if (count > 20) {
+                alerts.add(new DetectionAlert(ip, "Scan de répertoires : " + count + " URLs différentes en 404"));
             }
         }
-
-        return alerts.stream()
-                .sorted(Comparator.comparing(Alert::getTimestamp).reversed())
-                .collect(Collectors.toList());
+        return alerts;
     }
 }
