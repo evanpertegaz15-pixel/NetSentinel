@@ -1,6 +1,7 @@
 package src.detectors;
 
 import src.LogEntry;
+import src.reports.Whitelist;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -25,6 +26,9 @@ public class Scan extends Detector {
     public List<DetectionAlert> detect(List<LogEntry> entries) {
         List<DetectionAlert> alerts = new ArrayList<>();
         for (LogEntry entry : entries) {
+            if (Whitelist.isWhitelisted(entry.getIp())) {
+                continue;
+            }
             String path = entry.getPath().toLowerCase();
             if (SUSPICIOUS_PATHS.contains(path)) {
                 alerts.add(new DetectionAlert(entry.getIp(), "Accès à un chemin sensible : " + path, getName(), LocalDateTime.parse(entry.getDatetime())));
@@ -32,6 +36,9 @@ public class Scan extends Detector {
         }
         Set<String> flaggedUserAgent = new HashSet<>();
         for (LogEntry entry : entries) {
+            if (Whitelist.isWhitelisted(entry.getIp())) {
+                continue;
+            }
             String agent = entry.getUser().toLowerCase();
             String ip = entry.getIp();
             if (flaggedUserAgent.contains(ip)) {
@@ -47,12 +54,18 @@ public class Scan extends Detector {
         }
         Map<String, Set<String>> url404 = new HashMap<>();
         for (LogEntry entry : entries) {
+            if (Whitelist.isWhitelisted(entry.getIp())) {
+                continue;
+            }
             if (entry.getStatus() == 404) {
                 url404.computeIfAbsent(entry.getIp(), k -> new HashSet<>()).add(entry.getPath());
             }
         }
         for (var entry : url404.entrySet()) {
             String ip = entry.getKey();
+            if (Whitelist.isWhitelisted(ip)) {
+                continue;
+            }
             LocalDateTime last404 = entries.stream().filter(e -> e.getIp().equals(ip) && e.getStatus() == 404)
                     .map(e -> LocalDateTime.parse(e.getDatetime())).max(LocalDateTime::compareTo).orElse(LocalDateTime.now());
             int count = entry.getValue().size();

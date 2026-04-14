@@ -3,6 +3,7 @@ import src.LogParser;
 import src.StatsService;
 import src.detectors.*;
 import src.reports.Report;
+import src.reports.Whitelist;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -83,6 +84,11 @@ public class Main {
     static void main(String[] args) {
         List<LogEntry> logs = parseLogFile(cleanLogs);
         StatsService.displayDashboard(logs);
+        try {
+            Whitelist.load("whitelist.txt");
+        }  catch (IOException e) {
+            e.printStackTrace();
+        }
         detectorsLaunch();
         scoringDetectors();
         reportGeneration();

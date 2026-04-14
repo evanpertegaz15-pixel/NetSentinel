@@ -2,6 +2,7 @@ package src.detectors;
 
 
 import src.LogEntry;
+import src.reports.Whitelist;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -33,6 +34,9 @@ public class BruteForce extends Detector {
         List<DetectionAlert> alerts = new ArrayList<>();
         for (var entry : echecsParIp.entrySet()) {
             String ip = entry.getKey();
+            if (Whitelist.isWhitelisted(ip)) {
+                continue;
+            }
             List<LocalDateTime> echecs = entry.getValue();
             Collections.sort(echecs);
             for (int i = 0; i < echecs.size(); i++) {

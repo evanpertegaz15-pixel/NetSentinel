@@ -2,6 +2,8 @@ package src.detectors;
 
 import src.LogEntry;
 import src.LogParser;
+import src.reports.Whitelist;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -47,6 +49,9 @@ public class DDoS extends Detector {
         }
         for (var entry : ipLogs.entrySet()) {
             String ip = entry.getKey();
+            if (Whitelist.isWhitelisted(ip)) {
+                continue;
+            }
             List<LocalDateTime> times = entry.getValue();
             times.sort(LocalDateTime::compareTo);
             int left = 0;
