@@ -25,7 +25,7 @@ public class Scan extends Detector {
         for (LogEntry entry : entries) {
             String path = entry.getPath().toLowerCase();
             if (SUSPICIOUS_PATHS.contains(path)) {
-                alerts.add(new DetectionAlert(entry.getIp(), "Accès à un chemin sensible : " + path));
+                alerts.add(new DetectionAlert(entry.getIp(), "Accès à un chemin sensible : " + path, getName()));
             }
         }
         Set<String> flaggedUserAgent = new HashSet<>();
@@ -37,7 +37,7 @@ public class Scan extends Detector {
             }
             for (String scanner : SCAN_AGENTS) {
                 if (agent.contains(scanner)) {
-                    alerts.add(new DetectionAlert(entry.getIp(), "User-agent d’outil de scan détecté : " + scanner));
+                    alerts.add(new DetectionAlert(entry.getIp(), "User-agent d’outil de scan détecté : " + scanner,  getName()));
                     flaggedUserAgent.add(ip);
                     break;
                 }
@@ -53,7 +53,7 @@ public class Scan extends Detector {
             String ip = entry.getKey();
             int count = entry.getValue().size();
             if (count > 20) {
-                alerts.add(new DetectionAlert(ip, "Scan de répertoires : " + count + " URLs différentes en 404"));
+                alerts.add(new DetectionAlert(ip, "Scan de répertoires : " + count + " URLs différentes en 404",  getName()));
             }
         }
         return alerts;
