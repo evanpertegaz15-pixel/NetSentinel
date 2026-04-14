@@ -38,7 +38,7 @@ public class Main {
         return entries;
     }
 
-    public static void detectSQL() {
+    public static void detectorsLaunch() {
         for (Detector detector : detectors) {
             List<DetectionAlert> alerts = detector.detect(parseLogFile(attackLogs));
             if (!alerts.isEmpty()) {
@@ -53,6 +53,6 @@ public class Main {
     static void main(String[] args) {
         List<LogEntry> logs = parseLogFile(cleanLogs);
         StatsService.displayDashboard(logs);
-        detectSQL();
+        detectorsLaunch();
     }
 }
