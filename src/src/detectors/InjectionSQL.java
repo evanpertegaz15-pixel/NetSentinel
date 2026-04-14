@@ -1,6 +1,7 @@
 package src.detectors;
 
 import src.LogEntry;
+import src.reports.Whitelist;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +24,9 @@ public class InjectionSQL extends Detector {
     public List<DetectionAlert> detect(List<LogEntry> entries) {
         List<DetectionAlert> detectionAlerts = new ArrayList<>();
         for (LogEntry entry : entries) {
+            if (Whitelist.isWhitelisted(entry.getIp())) {
+                continue;
+            }
             String url = entry.getPath().toUpperCase();
             for (String pattern : PATTERNS) {
                 if (url.contains(pattern.toUpperCase())) {
