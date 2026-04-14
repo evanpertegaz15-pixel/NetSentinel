@@ -15,8 +15,8 @@ public class Main {
     static List<Detector> detectors = List.of(
             //new BruteForce(),
             new InjectionSQL(),
-            new DDoS()//,
-            //new Scan()
+            new DDoS(),
+            new Scan()
     );
 
     public static List<LogEntry> parseLogFile(String filename) {
