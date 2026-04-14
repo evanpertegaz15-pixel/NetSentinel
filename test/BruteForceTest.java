@@ -1,5 +1,5 @@
 import org.junit.jupiter.api.Test;
-import src.LogEntry;
+import src.logs.LogEntry;
 import src.detectors.BruteForce;
 import src.detectors.DetectionAlert;
 import java.time.LocalDateTime;

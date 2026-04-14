@@ -1,6 +1,6 @@
 package src.detectors;
 
-import src.LogEntry;
+import src.logs.LogEntry;
 import java.util.List;
 
 public abstract class Detector {

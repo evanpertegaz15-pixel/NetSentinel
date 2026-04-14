@@ -1,4 +1,4 @@
-package src;
+package src.logs;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;

@@ -1,6 +1,6 @@
-import src.LogEntry;
-import src.LogParser;
-import src.StatsService;
+import src.logs.LogEntry;
+import src.logs.LogParser;
+import src.logs.StatsService;
 import src.detectors.*;
 import src.reports.Report;
 import src.reports.Whitelist;

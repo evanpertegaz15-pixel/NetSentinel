@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import src.LogEntry;
-import src.LogParser;
+import src.logs.LogEntry;
+import src.logs.LogParser;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;

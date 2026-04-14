@@ -1,4 +1,4 @@
-package src;
+package src.logs;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import src.LogEntry;
+import src.logs.LogEntry;
 import src.detectors.DetectionAlert;
 import src.detectors.InjectionSQL;
 import src.reports.Whitelist;

@@ -1,7 +1,7 @@
 package src.detectors;
 
 
-import src.LogEntry;
+import src.logs.LogEntry;
 import src.reports.Whitelist;
 import java.time.Duration;
 import java.time.LocalDateTime;
