@@ -44,7 +44,7 @@ public class Report {
                 writer.write("\nIP : " + ip + "\n");
                 writer.write("Sévérité finale : " + severities.get(ip) + "\n");
                 for (DetectionAlert alert : ipAlerts.get(ip)) {
-                    writer.write(" - " + alert.getMessage() + " (" + alert.getDetector() + "\n");
+                    writer.write(" - " + alert.getMessage() + " (" + alert.getDetector() + ")\n");
                 }
             }
             writer.write("\n\n");
